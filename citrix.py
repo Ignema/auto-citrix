@@ -25,7 +25,7 @@ browser.add_cookie({"name":"CtxsClientDetectionDone", "value":"true"})
 
 
 # Login Page
-sleep(1)
+sleep(3)
 browser.find_element(By.ID, "login").send_keys(config["user"])
 browser.find_element(By.ID, "passwd").send_keys(config["password"])
 browser.find_element(By.ID, "nsg-x1-logon-button").click()
