@@ -25,4 +25,4 @@ def find_new_sms():
     return 0
 
 def fetch_sheet():
-    return s.get_all_values()
+    return s.get_all_values()[1:]

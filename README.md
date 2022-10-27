@@ -32,7 +32,7 @@ The **auto_sms** flag is a boolean that specifies whether you automated the 2FA 
         return ContentService
             .createTextOutput(JSON.stringify({}))
             .setMimeType(ContentService.MimeType.JSON);
-        }
+    }
 ```
 
 - After that, put the generated URL of the Apps Script deployment in the SMS hooks app so that it can send SMS messages directly to the google sheet.
