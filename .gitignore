@@ -1,1 +1,7 @@
+# Contains sensitive information
 config.json
+credentials.json
+
+# Irrelevant for the github repository
+__pycache__
+.vscode

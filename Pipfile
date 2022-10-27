@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 selenium = "*"
 chromedriver-autoinstaller = "*"
+gsheets = "*"
 
 [dev-packages]
 

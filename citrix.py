@@ -1,9 +1,14 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import chromedriver_autoinstaller
+from sms import get_latest_sms_code
 from time import sleep
 import json
+
+from sms import get_latest_sms_code
 
 # Load config
 config = json.load(open("config.json", "r"))
@@ -25,21 +30,24 @@ browser.add_cookie({"name":"CtxsClientDetectionDone", "value":"true"})
 
 
 # Login Page
-sleep(3)
+WebDriverWait(browser, 20).until(EC.element_to_be_clickable((By.ID, "login")))
 browser.find_element(By.ID, "login").send_keys(config["user"])
 browser.find_element(By.ID, "passwd").send_keys(config["password"])
 browser.find_element(By.ID, "nsg-x1-logon-button").click()
 
 
 # 2FA Page
-sleep(1)
-code = input("Please enter the 2FA you received on your phone: ")
+if(config["auto_sms"]):
+    code = get_latest_sms_code()
+else:
+    code = input("Please enter the 2FA you received on your phone: ")
+WebDriverWait(browser, 20).until(EC.element_to_be_clickable((By.ID, "response")))
 browser.find_element(By.ID, "response").send_keys(code)
 browser.find_element(By.ID, "ns-dialogue-submit").click()
 
 
 # Citrix Dashboard
-sleep(10)
+WebDriverWait(browser, 20).until(EC.element_to_be_clickable((By.ID, "desktopsBtn")))
 browser.find_element(By.ID, "desktopsBtn").click()
 browser.find_element(By.CLASS_NAME, "storeapp-details-link").click()
 
