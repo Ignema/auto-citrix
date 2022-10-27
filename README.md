@@ -37,6 +37,10 @@ The **auto_sms** flag is a boolean that specifies whether you automated the 2FA 
 
 - After that, put the generated URL of the Apps Script deployment in the SMS hooks app so that it can send SMS messages directly to the google sheet.
 
+- Make sure to respect this format when you create your new googe sheet:
+![Google Sheet Format](https://i.imgur.com/W1RKxvU.png)
+
+
 - Finally, you have to add the name of the sheet you created to the config.json
 
 *PS: Don't forget to set the auto_sms key in the config.json to true*
