@@ -24,5 +24,12 @@ def find_new_sms():
             return sheet[i][2]
     return 0
 
+def reset_sms():
+    sheet = fetch_sheet()
+    for i in range(len(sheet)):
+        if sheet[i][3] == "No":
+            s.update_cell(i + 2, 4, "Yes")
+    return 0
+
 def fetch_sheet():
     return s.get_all_values()[1:]

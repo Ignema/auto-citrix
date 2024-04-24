@@ -3,8 +3,9 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from webdriver_manager.chrome import ChromeDriverManager
 import chromedriver_autoinstaller
-from sms import get_latest_sms_code
+from sms import get_latest_sms_code, reset_sms
 from time import sleep
 import json
 
@@ -20,9 +21,12 @@ chromedriver_autoinstaller.install()
 options = Options()
 options.add_argument('--log-level=3')
 
+# Reset SMS sheet
+reset_sms()
+
 
 # Start browser and navigate to page
-browser = webdriver.Chrome(options=options)
+browser = webdriver.Chrome(ChromeDriverManager().install(), options=options)
 browser.get(config["citrix_url"])
 
 # Insert cookie to avoid alert message later
@@ -49,6 +53,7 @@ browser.find_element(By.ID, "ns-dialogue-submit").click()
 # Citrix Dashboard
 WebDriverWait(browser, 20).until(EC.element_to_be_clickable((By.ID, "desktopsBtn")))
 browser.find_element(By.ID, "desktopsBtn").click()
+WebDriverWait(browser, 20).until(EC.element_to_be_clickable((By.CLASS_NAME, "storeapp-details-link")))
 browser.find_element(By.CLASS_NAME, "storeapp-details-link").click()
 
 # Delay to download .ica file and let user open it
